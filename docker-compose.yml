@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/cache:/data
+    networks:
+      - redis-pub-sub
+
+  server_pub:
+    build: ./server-pub
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ""
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./server-pub:/home/app
+    depends_on:
+      - redis
+    networks:
+      - redis-pub-sub
+
+  server_sub:
+    build: ./server-sub
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ""
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./server-sub:/home/app
+    depends_on:
+      - redis
+    networks:
+      - redis-pub-sub
+
+networks:
+  redis-pub-sub:
+    driver: bridge
