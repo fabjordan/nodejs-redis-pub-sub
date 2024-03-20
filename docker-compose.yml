@@ -21,6 +21,7 @@ services:
       - "3001:3001"
     volumes:
       - ./server-pub:/home/app
+      - /home/app/node_modules
     depends_on:
       - redis
     networks:
@@ -36,6 +37,7 @@ services:
       - "3002:3002"
     volumes:
       - ./server-sub:/home/app
+      - /home/app/node_modules
     depends_on:
       - redis
     networks:
