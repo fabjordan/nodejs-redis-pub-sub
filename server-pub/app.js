@@ -18,7 +18,7 @@ clientRedis.on('error', (err) => {
   console.log('Redis error', err);
 });
 
-const channel = "message-1";
+const channel = "message-2";
 
 app.post('/messages', (req, res) => {
   try {
