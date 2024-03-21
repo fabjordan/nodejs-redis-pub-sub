@@ -3,6 +3,7 @@ version: "3.7"
 services:
   redis:
     image: redis
+    container_name: redis
     restart: always
     ports:
       - "6379:6379"
@@ -13,6 +14,7 @@ services:
 
   server_pub:
     build: ./server-pub
+    container_name: server-pub
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -29,6 +31,7 @@ services:
 
   server_sub:
     build: ./server-sub
+    container_name: server-sub
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
